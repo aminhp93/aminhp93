@@ -1,3 +1,55 @@
+import Link from "next/link";
+import { getBlogPosts } from "./utils";
+import { Suspense } from "react";
+import ViewCounter from "./view-counter";
+
 export default function Blog() {
-  return <div>Blog</div>;
+  let allBlogs = getBlogPosts();
+
+  console.log({ allBlogs });
+
+  return (
+    <section>
+      <h1 className="font-medium text-2xl mb-8 tracking-tighter">
+        read my blog
+      </h1>
+      {allBlogs
+        .sort((a, b) => {
+          if (
+            new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)
+          ) {
+            return -1;
+          }
+          return 1;
+        })
+        .map((post) => (
+          <Link
+            key={post.slug}
+            className="flex flex-col space-y-1 mb-4"
+            href={`/blog/${post.slug}`}
+          >
+            <div className="w-full flex flex-col">
+              <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+                {post.metadata.title}
+              </p>
+              <Suspense fallback={<p className="h-6" />}>
+                <Views slug={post.slug} />
+              </Suspense>
+            </div>
+          </Link>
+        ))}
+    </section>
+  );
+}
+
+async function Views({ slug }: { slug: string }) {
+  // let views = await getViewsCount();
+  let views = [
+    {
+      count: 100,
+      slug: "test",
+    },
+  ];
+
+  return <ViewCounter allViews={views} slug={slug} />;
 }
