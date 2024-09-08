@@ -1,5 +1,5 @@
 {
-  "name": "webpmp-v5-pv-items",
+  "name": "aminhp93",
   "version": "1.0.20",
   "private": true,
   "scripts": {
@@ -7,7 +7,8 @@
     "build": "next build",
     "export": "next export",
     "start": "next start -p 3002",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky"
   },
   "dependencies": {
     "@module-federation/nextjs-mf": "^8.4.13",
@@ -24,6 +25,15 @@
     "@typescript-eslint/parser": "^6.13.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.7",
-    "typescript": "^5"
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,md}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
