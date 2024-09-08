@@ -7,11 +7,11 @@ const nextConfig = {
   webpack(config) {
     config.plugins.push(
       new NextFederationPlugin({
-        name: "pvItemsApplication",
+        name: "github-coffee-blog",
         remotes: {},
         filename: "static/chunks/remoteEntry.js",
         exposes: {
-          "./view": "./pages/index.tsx",
+          "./index": "./pages/index.tsx",
         },
         // shared: createSharedDependencies(),
       })
